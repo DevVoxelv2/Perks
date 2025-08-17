@@ -8,6 +8,7 @@ import com.example.perks.managers.DatabaseManager;
 import com.example.perks.managers.PerkManager;
 import com.example.perks.model.Perk;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
