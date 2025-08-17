@@ -1,0 +1,59 @@
+# NitroPerks – GUI Configuration
+# Simplified menu configuration for perks and shop.
+
+templates:
+  enabled:
+    material: LIME_DYE
+    name: '&aEnabled'
+    lore:
+      - ''
+      - '&7This perk is currently &aactive&7.'
+  disabled:
+    material: GRAY_DYE
+    name: '&7Disabled'
+    lore:
+      - ''
+      - '&7This perk is currently &cinactive&7.'
+  notclaimed:
+    material: REDSTONE
+    name: '&cNot Claimed'
+    lore:
+      - ''
+      - '&7You have not claimed this perk yet.'
+  claimed:
+    material: BARRIER
+    name: '&cAlready Claimed'
+    lore:
+      - ''
+      - '&7You already own this perk.'
+  buy:
+    material: EMERALD
+    name: '&aBuy'
+    lore:
+      - '&7Click to purchase this perk'
+      - '&fPrice &8» &7{price}'
+
+main-menu:
+  rows: 3
+  title: '&x&D&6&9&A&0&0&lP&x&D&6&A&E&0&0&lE&x&7&8&A&2&5&B&lR&x&2&1&9&8&B&E&lK&x&3&2&B&1&D&9&lS'
+  items: {}
+
+shop-menu:
+  page1:
+    rows: 4
+    title: '&x&B&4&B&6&3&0&lP&x&B&4&A&E&3&4&lE&x&B&4&A&5&3&8&lR&x&B&4&9&D&3&C&lK&x&B&4&9&4&4&0&lS &8| &fShop'
+    items: {}
+  page2:
+    rows: 4
+    title: '&x&B&4&B&6&3&0&lP&x&B&4&A&E&3&4&lE&x&B&4&A&5&3&8&lR&x&B&4&9&D&3&C&lK&x&B&4&9&4&4&0&lS &8| &fShop'
+    items: {}
+
+perks-overview:
+  page1:
+    rows: 4
+    title: '&x&B&4&B&6&3&0&lP&x&B&4&A&E&3&4&lE&x&B&4&A&5&3&8&lR&x&B&4&9&D&3&C&lK&x&B&4&9&4&4&0&lS &8| &fOverview'
+    items: {}
+  page2:
+    rows: 4
+    title: '&x&B&4&B&6&3&0&lP&x&B&4&A&E&3&4&lE&x&B&4&A&5&3&8&lR&x&B&4&9&D&3&C&lK&x&B&4&9&4&4&0&lS &8| &fOverview'
+    items: {}
