@@ -1,0 +1,41 @@
+# NitroPerks - General Settings
+use-messages-yml: true
+
+mysql:
+  host: localhost
+  port: 3306
+  database: perks
+  username: root
+  password: password
+
+prices:
+  telekinesis: 1200000
+  glow: 540000
+  no-hunger: 80000
+  lava-resistance: 1200000
+  no-fall: 670000
+  water-breath: 90000
+  keep-xp: 750000
+  keep-inventory: 750000
+  speed: 450000
+  night-vision: 350000
+  jump: 350000
+  haste: 450000
+  fly: 150000
+  instant-smelt: 115000
+
+permissions:
+  telekinesis: nitroperks.perks.telekinesis
+  glow: nitroperks.perks.glow
+  no-hunger: nitroperks.perks.no-hunger
+  lava-resistance: nitroperks.perks.lavaresistance
+  no-fall: nitroperks.perks.no-fall
+  water-breath: nitroperks.perks.waterbreath
+  keep-xp: nitroperks.perks.keepxp
+  keep-inventory: nitroperks.perks.keepinventory
+  speed: nitroperks.perks.speed
+  night-vision: nitroperks.perks.nightvision
+  jump: nitroperks.perks.jump
+  haste: nitroperks.perks.haste
+  fly: nitroperks.perks.fly
+  instant-smelt: nitroperks.perks.instantsmelt

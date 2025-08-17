@@ -1,0 +1,28 @@
+# NitroPerks - Messages
+prefix: '&x&D&6&9&A&0&0&lP&x&D&6&A&E&0&0&lE&x&7&8&A&2&5&B&lR&x&2&1&9&8&B&E&lK&x&3&2&B&1&D&9&lS &8» '
+
+# General
+no-permission: '&cYou do not have permission to use this command.'
+invalid-player: '&cPlayer &e{player}&c not found.'
+invalid-perk: '&cPerk &e{perk}&c not recognized.'
+perk-already: '&cPlayer &e{player}&c already has &e{perk}&c.'
+perk-added: '&aGave &e{perk}&a to &e{player}&a.'
+perk-removed: '&aRemoved &e{perk}&a from &e{player}&a.'
+reload-success: '&aConfiguration reloaded successfully.'
+admin-no-permission: '&cYou need &enitroperks.admin &cto use this command.'
+
+# Shop & Economy
+not-enough-money: '&cYou do not have enough money to buy &e{perk}&c!'
+purchase-success: '&aYou purchased &e{perk}&a for &e{price}&a.'
+
+# Set Price
+setprice-success: '&aSet price of &e{perk}&a to &e{price}&a.'
+
+# Vault Integration
+vault-missing: '&cVault or an economy plugin not found. Disabling NitroPerks.'
+
+# Enabled / Disabled
+plugin-enabled: '&aNitroPerks v{version} enabled.'
+plugin-disabled: '&eNitroPerks disabled.'
+toggle-on: '&aActivated &e{perk}&a!'
+toggle-off: '&cDeactivated &e{perk}&c!'
