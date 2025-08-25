@@ -184,7 +184,13 @@ public enum Perk {
     public ItemStack createIcon() {
         ItemStack head = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) head.getItemMeta();
-        GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        // The GameProfile constructor no longer accepts a null name in recent
+        // versions of the authentication library. Using a null value here caused
+        // a NullPointerException when the perks menu attempted to create the
+        // custom skull icon for a perk. To avoid this we provide a non-null
+        // profile name; the actual value is irrelevant for our custom texture, so
+        // we simply reuse the perk's key as the profile's name.
+        GameProfile profile = new GameProfile(UUID.randomUUID(), key);
         profile.getProperties().put("textures", new Property("textures", texture));
         try {
             Field profileField = meta.getClass().getDeclaredField("profile");
