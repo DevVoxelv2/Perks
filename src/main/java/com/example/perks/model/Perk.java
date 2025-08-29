@@ -119,23 +119,37 @@ public enum Perk {
     JUMP("jump", "boosterperks.perks.jump", PerkCategory.MOVEMENT, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzU1MjE1NzUxNjhlOWViNzg5ZDY1OTVkNTJjMzY4YTQ4NTQxZTcyOWI1NWQxMGI3MDRlNDRmYmYyODBkM2I3OSJ9fX0=") {
         @Override
         public void apply(Player p) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 0, true, false));
+            // Use compatible potion effect type
+            PotionEffectType jumpEffect = getCompatiblePotionEffect("JUMP_BOOST", "JUMP");
+            if (jumpEffect != null) {
+                p.addPotionEffect(new PotionEffect(jumpEffect, Integer.MAX_VALUE, 0, true, false));
+            }
         }
 
         @Override
         public void remove(Player p) {
-            p.removePotionEffect(PotionEffectType.JUMP);
+            PotionEffectType jumpEffect = getCompatiblePotionEffect("JUMP_BOOST", "JUMP");
+            if (jumpEffect != null) {
+                p.removePotionEffect(jumpEffect);
+            }
         }
     },
     HASTE("haste", "boosterperks.perks.haste", PerkCategory.MINING, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmQ5ODY3ZGRhNDdmMjkxODRmMThlYjI2MTc1MGMzYmE0ZDc2MzM4NzgzZDRmNjY5MWJlNTFmY2FlZDFiNTU3In19fQ==") {
         @Override
         public void apply(Player p) {
-            p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 0, true, false));
+            // Use compatible potion effect type
+            PotionEffectType hasteEffect = getCompatiblePotionEffect("HASTE", "FAST_DIGGING");
+            if (hasteEffect != null) {
+                p.addPotionEffect(new PotionEffect(hasteEffect, Integer.MAX_VALUE, 0, true, false));
+            }
         }
 
         @Override
         public void remove(Player p) {
-            p.removePotionEffect(PotionEffectType.FAST_DIGGING);
+            PotionEffectType hasteEffect = getCompatiblePotionEffect("HASTE", "FAST_DIGGING");
+            if (hasteEffect != null) {
+                p.removePotionEffect(hasteEffect);
+            }
         }
     },
     FLY("fly", "boosterperks.perks.fly", PerkCategory.MOVEMENT, "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2FiMTEwNGExZWYzNGI2YjZmOGY5N2I0ZTk1OWFjODBlYWQyNDU1OWFlNWY3MWMzMmQ5MjFkMzQ3ZTJkMjRhZSJ9fX0=") {
@@ -216,5 +230,31 @@ public enum Perk {
             }
         }
         return null;
+    }
+    
+    /**
+     * Helper method to get compatible potion effect types
+     */
+    private static PotionEffectType getCompatiblePotionEffect(String newName, String oldName) {
+        try {
+            return PotionEffectType.getByName(newName);
+        } catch (Exception e1) {
+            try {
+                return PotionEffectType.getByName(oldName);
+            } catch (Exception e2) {
+                // Try reflection for older versions
+                try {
+                    java.lang.reflect.Field field = PotionEffectType.class.getDeclaredField(newName);
+                    return (PotionEffectType) field.get(null);
+                } catch (Exception e3) {
+                    try {
+                        java.lang.reflect.Field field = PotionEffectType.class.getDeclaredField(oldName);
+                        return (PotionEffectType) field.get(null);
+                    } catch (Exception e4) {
+                        return null;
+                    }
+                }
+            }
+        }
     }
 }

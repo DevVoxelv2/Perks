@@ -128,7 +128,8 @@ public class EffectsManager {
                     double y = t * 0.1;
                     
                     Location particleLoc = loc.clone().add(x, y, z);
-                    player.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, particleLoc, 1, 0, 0, 0, 0);
+                    Particle enchantParticle = VersionCompatibility.getCompatibleParticle("ENCHANTMENT_TABLE");
+                    player.getWorld().spawnParticle(enchantParticle, particleLoc, 1, 0, 0, 0, 0);
                     
                     t += 0.3;
                     count++;
@@ -168,12 +169,12 @@ public class EffectsManager {
         
         // Create different auras for different perk types
         Particle particle = switch (perkKey) {
-            case "glow" -> Particle.END_ROD;
-            case "speed" -> Particle.CLOUD;
-            case "fly" -> Particle.FIREWORKS_SPARK;
-            case "night-vision" -> Particle.ENCHANTMENT_TABLE;
-            case "haste" -> Particle.CRIT;
-            default -> Particle.VILLAGER_HAPPY;
+            case "glow" -> VersionCompatibility.getCompatibleParticle("END_ROD");
+            case "speed" -> VersionCompatibility.getCompatibleParticle("CLOUD");
+            case "fly" -> VersionCompatibility.getCompatibleParticle("FIREWORKS_SPARK");
+            case "night-vision" -> VersionCompatibility.getCompatibleParticle("ENCHANTMENT_TABLE");
+            case "haste" -> VersionCompatibility.getCompatibleParticle("CRIT");
+            default -> VersionCompatibility.getCompatibleParticle("VILLAGER_HAPPY");
         };
         
         // Spawn particles around the player

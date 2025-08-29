@@ -92,14 +92,14 @@ public class VersionCompatibility {
         } catch (IllegalArgumentException e) {
             // Fallback particles for version compatibility
             return switch (particleName.toUpperCase()) {
-                case "VILLAGER_HAPPY" -> tryParticle("HAPPY_VILLAGER", "VILLAGER_HAPPY");
-                case "SMOKE_NORMAL" -> tryParticle("SMOKE", "SMOKE_NORMAL");
+                case "VILLAGER_HAPPY" -> tryParticle("VILLAGER_HAPPY", "HAPPY_VILLAGER");
+                case "SMOKE_NORMAL" -> tryParticle("SMOKE_NORMAL", "SMOKE");
                 case "ENCHANTMENT_TABLE" -> tryParticle("ENCHANTMENT_TABLE", "ENCHANT");
-                case "FIREWORKS_SPARK" -> tryParticle("FIREWORK", "FIREWORKS_SPARK");
+                case "FIREWORKS_SPARK" -> tryParticle("FIREWORKS_SPARK", "FIREWORK");
                 case "END_ROD" -> tryParticle("END_ROD", "SPELL_WITCH");
                 case "CLOUD" -> tryParticle("CLOUD", "SPELL");
                 case "CRIT" -> tryParticle("CRIT", "CRIT_MAGIC");
-                default -> Particle.HEART; // Safe fallback
+                default -> getBasicParticle(); // Safe fallback
             };
         }
     }
@@ -111,7 +111,27 @@ public class VersionCompatibility {
             try {
                 return Particle.valueOf(oldName);
             } catch (IllegalArgumentException e2) {
-                return Particle.HEART;
+                return getBasicParticle();
+            }
+        }
+    }
+    
+    /**
+     * Gets a basic particle that should exist in all versions
+     */
+    private static Particle getBasicParticle() {
+        try {
+            return Particle.valueOf("HEART");
+        } catch (IllegalArgumentException e1) {
+            try {
+                return Particle.valueOf("FLAME");
+            } catch (IllegalArgumentException e2) {
+                try {
+                    return Particle.valueOf("SMOKE");
+                } catch (IllegalArgumentException e3) {
+                    // Return the first available particle as last resort
+                    return Particle.values()[0];
+                }
             }
         }
     }
@@ -167,11 +187,31 @@ public class VersionCompatibility {
      */
     public static void sendActionBar(Player player, String message) {
         try {
-            player.sendActionBar(message);
-        } catch (Exception e) {
-            // Fallback to chat message if action bar is not available
-            player.sendMessage("§7[ActionBar] " + message);
+            // Try modern API first (1.19+)
+            java.lang.reflect.Method sendActionBarMethod = Player.class.getMethod("sendActionBar", String.class);
+            sendActionBarMethod.invoke(player, message);
+        } catch (NoSuchMethodException | IllegalAccessException | java.lang.reflect.InvocationTargetException e) {
+            try {
+                // Try Component-based API (1.16-1.18)
+                Class<?> componentClass = Class.forName("net.kyori.adventure.text.Component");
+                java.lang.reflect.Method textMethod = componentClass.getMethod("text", String.class);
+                Object component = textMethod.invoke(null, message.replace('&', '§'));
+                
+                java.lang.reflect.Method sendActionBarComponentMethod = Player.class.getMethod("sendActionBar", componentClass);
+                sendActionBarComponentMethod.invoke(player, component);
+            } catch (Exception ex) {
+                // Simple fallback - just show as chat message with prefix
+                player.sendMessage("§8[§6Action§8] §r" + message);
+            }
         }
+    }
+    
+    /**
+     * Gets the server version for NMS calls
+     */
+    private static String getServerVersion() {
+        String packageName = Bukkit.getServer().getClass().getPackage().getName();
+        return packageName.substring(packageName.lastIndexOf('.') + 1);
     }
     
     /**
