@@ -40,7 +40,7 @@ public class AdminMenuListener implements Listener {
             return;
         }
         
-        if (!admin.hasPermission("nitroperks.admin")) {
+        if (!admin.hasPermission("boosterperks.admin")) {
             admin.closeInventory();
             admin.sendMessage(plugin.getPrefix() + "§cYou don't have permission to use admin features.");
             return;

@@ -30,12 +30,12 @@ public class AdminManager {
     }
     
     public void openMainAdminMenu(Player admin) {
-        if (!admin.hasPermission("nitroperks.admin")) {
+        if (!admin.hasPermission("boosterperks.admin")) {
             admin.sendMessage(plugin.getPrefix() + "§cYou don't have permission to access the admin menu.");
             return;
         }
         
-        Inventory inv = Bukkit.createInventory(null, 27, "§4§lNitroPerks Admin Panel");
+        Inventory inv = Bukkit.createInventory(null, 27, "§4§lBoosterPerks Admin Panel");
         
         // Player Management
         ItemStack playerManagement = new ItemStack(VersionCompatibility.getCompatibleMaterial("PLAYER_HEAD"));

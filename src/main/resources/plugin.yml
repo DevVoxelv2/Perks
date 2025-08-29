@@ -1,8 +1,8 @@
-name: NitroPerks
-version: '2.0.0'
+name: BoosterPerks
+version: '1.0.0'
 description: 'Advanced perk system with GUI, database support, and admin tools'
 author: 'YourName'
-website: 'https://github.com/YourUsername/NitroPerks'
+website: 'https://github.com/YourUsername/BoosterPerks'
 main: com.example.perks.PerksPlugin
 api-version: '1.20'
 folia-supported: true
@@ -12,121 +12,121 @@ depend: [Vault]
 softdepend: []
 
 commands:
-  perks:
+  boosterperks:
     description: 'Open the perks menu or execute admin commands'
-    usage: '/perks [admin|add|remove|setprice|reload] [args...]'
-    aliases: [perk, nitroperks, np]
-    permission: nitroperks.use
-  perkshop:
+    usage: '/boosterperks [admin|add|remove|setprice|reload] [args...]'
+    aliases: [bperks, bp, perks, perk]
+    permission: boosterperks.use
+  boostershop:
     description: 'Open the perk shop (redirects to main menu)'
-    usage: '/perkshop'
-    aliases: [shop, ps]
-    permission: nitroperks.use
+    usage: '/boostershop'
+    aliases: [bshop, perkshop, shop]
+    permission: boosterperks.use
 
 permissions:
-  nitroperks.*:
-    description: 'Gives access to all NitroPerks features'
+  boosterperks.*:
+    description: 'Gives access to all BoosterPerks features'
     default: op
     children:
-      nitroperks.use: true
-      nitroperks.admin: true
-      nitroperks.perks.*: true
+      boosterperks.use: true
+      boosterperks.admin: true
+      boosterperks.perks.*: true
   
-  nitroperks.use:
+  boosterperks.use:
     description: 'Allows basic perk usage and menu access'
     default: true
   
-  nitroperks.admin:
+  boosterperks.admin:
     description: 'Allows administrative perk commands and GUI access'
     default: op
     children:
-      nitroperks.use: true
-      nitroperks.admin.gui: true
-      nitroperks.admin.setprice: true
-      nitroperks.admin.give: true
-      nitroperks.admin.remove: true
-      nitroperks.admin.reload: true
+      boosterperks.use: true
+      boosterperks.admin.gui: true
+      boosterperks.admin.setprice: true
+      boosterperks.admin.give: true
+      boosterperks.admin.remove: true
+      boosterperks.admin.reload: true
   
-  nitroperks.admin.gui:
+  boosterperks.admin.gui:
     description: 'Access to admin GUI panels'
     default: op
   
-  nitroperks.admin.setprice:
+  boosterperks.admin.setprice:
     description: 'Allows setting perk prices'
     default: op
   
-  nitroperks.admin.give:
+  boosterperks.admin.give:
     description: 'Allows giving perks to players'
     default: op
   
-  nitroperks.admin.remove:
+  boosterperks.admin.remove:
     description: 'Allows removing perks from players'
     default: op
   
-  nitroperks.admin.reload:
+  boosterperks.admin.reload:
     description: 'Allows reloading plugin configuration'
     default: op
 
   # Individual perk permissions
-  nitroperks.perks.*:
+  boosterperks.perks.*:
     description: 'Gives access to all perks'
     default: false
     children:
-      nitroperks.perks.telekinesis: true
-      nitroperks.perks.glow: true
-      nitroperks.perks.no-hunger: true
-      nitroperks.perks.lavaresistance: true
-      nitroperks.perks.no-fall: true
-      nitroperks.perks.waterbreath: true
-      nitroperks.perks.keepxp: true
-      nitroperks.perks.keepinventory: true
-      nitroperks.perks.speed: true
-      nitroperks.perks.nightvision: true
-      nitroperks.perks.jump: true
-      nitroperks.perks.haste: true
-      nitroperks.perks.fly: true
-      nitroperks.perks.instantsmelt: true
+      boosterperks.perks.telekinesis: true
+      boosterperks.perks.glow: true
+      boosterperks.perks.no-hunger: true
+      boosterperks.perks.lavaresistance: true
+      boosterperks.perks.no-fall: true
+      boosterperks.perks.waterbreath: true
+      boosterperks.perks.keepxp: true
+      boosterperks.perks.keepinventory: true
+      boosterperks.perks.speed: true
+      boosterperks.perks.nightvision: true
+      boosterperks.perks.jump: true
+      boosterperks.perks.haste: true
+      boosterperks.perks.fly: true
+      boosterperks.perks.instantsmelt: true
 
   # Individual perk permissions
-  nitroperks.perks.telekinesis:
+  boosterperks.perks.telekinesis:
     description: 'Allows using the Telekinesis perk'
     default: false
-  nitroperks.perks.glow:
+  boosterperks.perks.glow:
     description: 'Allows using the Glow perk'
     default: false
-  nitroperks.perks.no-hunger:
+  boosterperks.perks.no-hunger:
     description: 'Allows using the No Hunger perk'
     default: false
-  nitroperks.perks.lavaresistance:
+  boosterperks.perks.lavaresistance:
     description: 'Allows using the Lava Resistance perk'
     default: false
-  nitroperks.perks.no-fall:
+  boosterperks.perks.no-fall:
     description: 'Allows using the No Fall perk'
     default: false
-  nitroperks.perks.waterbreath:
+  boosterperks.perks.waterbreath:
     description: 'Allows using the Water Breath perk'
     default: false
-  nitroperks.perks.keepxp:
+  boosterperks.perks.keepxp:
     description: 'Allows using the Keep XP perk'
     default: false
-  nitroperks.perks.keepinventory:
+  boosterperks.perks.keepinventory:
     description: 'Allows using the Keep Inventory perk'
     default: false
-  nitroperks.perks.speed:
+  boosterperks.perks.speed:
     description: 'Allows using the Speed perk'
     default: false
-  nitroperks.perks.nightvision:
+  boosterperks.perks.nightvision:
     description: 'Allows using the Night Vision perk'
     default: false
-  nitroperks.perks.jump:
+  boosterperks.perks.jump:
     description: 'Allows using the Jump perk'
     default: false
-  nitroperks.perks.haste:
+  boosterperks.perks.haste:
     description: 'Allows using the Haste perk'
     default: false
-  nitroperks.perks.fly:
+  boosterperks.perks.fly:
     description: 'Allows using the Fly perk'
     default: false
-  nitroperks.perks.instantsmelt:
+  boosterperks.perks.instantsmelt:
     description: 'Allows using the Instant Smelt perk'
     default: false

@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example</groupId>
-  <artifactId>perks</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <artifactId>boosterperks</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>NitroPerks</name>
+  <name>BoosterPerks</name>
   <description>Advanced perk system with GUI and database support for Minecraft 1.20-1.21.8</description>
 
   <properties>
@@ -41,11 +41,11 @@
         <scope>provided</scope>
       </dependency>
       
-      <!-- MySQL Connector -->
+      <!-- MySQL Connector - Using older stable version -->
       <dependency>
-        <groupId>com.mysql</groupId>
-        <artifactId>mysql-connector-j</artifactId>
-        <version>${mysql.version}</version>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version>
         <scope>compile</scope>
       </dependency>
       
@@ -91,7 +91,7 @@
                 <relocations>
                   <relocation>
                     <pattern>com.mysql</pattern>
-                    <shadedPattern>com.example.perks.libs.mysql</shadedPattern>
+                    <shadedPattern>com.example.boosterperks.libs.mysql</shadedPattern>
                   </relocation>
                 </relocations>
                 <filters>

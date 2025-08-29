@@ -26,12 +26,12 @@ public class VersionCompatibility {
         (VERSION_NUMBERS[0] == 1 && VERSION_NUMBERS[1] == 21 && VERSION_NUMBERS[2] <= 8);
     
     static {
-        LOGGER.info("[NitroPerks] Detected server version: " + SERVER_VERSION);
-        LOGGER.info("[NitroPerks] Parsed version: " + VERSION_NUMBERS[0] + "." + VERSION_NUMBERS[1] + "." + VERSION_NUMBERS[2]);
-        LOGGER.info("[NitroPerks] Version supported: " + IS_SUPPORTED_VERSION);
+        LOGGER.info("[BoosterPerks] Detected server version: " + SERVER_VERSION);
+        LOGGER.info("[BoosterPerks] Parsed version: " + VERSION_NUMBERS[0] + "." + VERSION_NUMBERS[1] + "." + VERSION_NUMBERS[2]);
+        LOGGER.info("[BoosterPerks] Version supported: " + IS_SUPPORTED_VERSION);
         
         if (!IS_SUPPORTED_VERSION) {
-            LOGGER.warning("[NitroPerks] This version may not be fully supported. Recommended: 1.20.x - 1.21.8");
+            LOGGER.warning("[BoosterPerks] This version may not be fully supported. Recommended: 1.20.x - 1.21.8");
         }
     }
     
@@ -47,7 +47,7 @@ public class VersionCompatibility {
             
             return new int[]{major, minor, patch};
         } catch (Exception e) {
-            LOGGER.log(Level.WARNING, "[NitroPerks] Failed to parse server version, assuming 1.20.1", e);
+            LOGGER.log(Level.WARNING, "[BoosterPerks] Failed to parse server version, assuming 1.20.1", e);
             return new int[]{1, 20, 1};
         }
     }
@@ -205,7 +205,7 @@ public class VersionCompatibility {
      * Logs version compatibility information
      */
     public static void logCompatibilityInfo() {
-        LOGGER.info("=== NitroPerks Version Compatibility ===");
+        LOGGER.info("=== BoosterPerks Version Compatibility ===");
         LOGGER.info("Server Version: " + SERVER_VERSION);
         LOGGER.info("Bukkit Version: " + Bukkit.getBukkitVersion());
         LOGGER.info("API Version: " + Bukkit.getServer().getClass().getPackage().getName());

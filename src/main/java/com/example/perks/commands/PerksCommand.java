@@ -40,7 +40,7 @@ public class PerksCommand implements CommandExecutor {
         String sub = args[0].toLowerCase();
         switch (sub) {
             case "setprice":
-                if (!sender.hasPermission("nitroperks.admin")) {
+                if (!sender.hasPermission("boosterperks.admin")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessage("admin-no-permission", Map.of()));
                     return true;
                 }
@@ -61,7 +61,7 @@ public class PerksCommand implements CommandExecutor {
                 sender.sendMessage(plugin.getPrefix() + plugin.getMessage("setprice-success", Map.of("perk", perk.getKey(), "price", args[2])));
                 return true;
             case "add":
-                if (!sender.hasPermission("nitroperks.admin")) {
+                if (!sender.hasPermission("boosterperks.admin")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessage("admin-no-permission", Map.of()));
                     return true;
                 }
@@ -80,7 +80,7 @@ public class PerksCommand implements CommandExecutor {
                 sender.sendMessage(plugin.getPrefix() + plugin.getMessage("perk-added", Map.of("player", target.getName(), "perk", perk.getKey())));
                 return true;
             case "remove":
-                if (!sender.hasPermission("nitroperks.admin")) {
+                if (!sender.hasPermission("boosterperks.admin")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessage("admin-no-permission", Map.of()));
                     return true;
                 }
@@ -99,7 +99,7 @@ public class PerksCommand implements CommandExecutor {
                 sender.sendMessage(plugin.getPrefix() + plugin.getMessage("perk-removed", Map.of("player", target.getName(), "perk", perk.getKey())));
                 return true;
             case "reload":
-                if (!sender.hasPermission("nitroperks.admin")) {
+                if (!sender.hasPermission("boosterperks.admin")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessage("admin-no-permission", Map.of()));
                     return true;
                 }
@@ -107,7 +107,7 @@ public class PerksCommand implements CommandExecutor {
                 sender.sendMessage(plugin.getPrefix() + plugin.getMessage("reload-success", Map.of()));
                 return true;
             case "admin":
-                if (!sender.hasPermission("nitroperks.admin")) {
+                if (!sender.hasPermission("boosterperks.admin")) {
                     sender.sendMessage(plugin.getPrefix() + plugin.getMessage("admin-no-permission", Map.of()));
                     return true;
                 }

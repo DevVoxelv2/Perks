@@ -1,4 +1,4 @@
-# 🚀 NitroPerks v2.0.0
+# 🚀 BoosterPerks v1.0.0
 
 **Advanced Minecraft Perk System with GUI, Database Support & Admin Tools**
 
@@ -8,7 +8,7 @@
 
 ## 📋 Overview
 
-NitroPerks is a comprehensive perk management system for Minecraft servers, featuring an intuitive GUI, robust database integration, and powerful admin tools. Perfect for survival, economy, and custom game mode servers.
+BoosterPerks is a comprehensive perk management system for Minecraft servers, featuring an intuitive GUI, robust database integration, and powerful admin tools. Perfect for survival, economy, and custom game mode servers.
 
 ## ✨ Key Features
 
@@ -60,7 +60,7 @@ The plugin automatically detects your server version and:
 5. **MySQL database** (optional but recommended)
 
 ### Quick Setup
-1. Download the latest `NitroPerks-2.0.0.jar`
+1. Download the latest `BoosterPerks-1.0.0.jar`
 2. Place in your server's `plugins/` directory
 3. Start/restart your server
 4. Configure database settings in `config.yml`
@@ -76,39 +76,40 @@ The plugin automatically detects your server version and:
 
 ### Player Commands
 ```
-/perks              - Open main perk menu
-/perkshop          - Access perk shop (redirects to main menu)
-/perk              - Alias for /perks
-/nitroperks        - Full plugin name command
-/np                - Short alias
+/boosterperks           - Open main perk menu
+/bperks                 - Short alias for main command
+/bp                     - Shortest alias
+/perks                  - Legacy alias
+/boostershop           - Access perk shop (redirects to main menu)
+/bshop                 - Short shop alias
 ```
 
 ### Admin Commands
 ```
-/perks admin                    - Open admin panel
-/perks add <player> <perk>      - Give perk to player
-/perks remove <player> <perk>   - Remove perk from player
-/perks setprice <perk> <price>  - Set perk price
-/perks reload                   - Reload configuration
+/boosterperks admin                    - Open admin panel
+/boosterperks add <player> <perk>      - Give perk to player
+/boosterperks remove <player> <perk>   - Remove perk from player
+/boosterperks setprice <perk> <price>  - Set perk price
+/boosterperks reload                   - Reload configuration
 ```
 
 ### Permissions
 ```yaml
 # Basic usage
-nitroperks.use                  # Access to menus and owned perks
+boosterperks.use                  # Access to menus and owned perks
 
 # Admin permissions
-nitroperks.admin               # Full admin access
-nitroperks.admin.gui          # Admin GUI access
-nitroperks.admin.setprice     # Price modification
-nitroperks.admin.give         # Give perks to players
-nitroperks.admin.remove       # Remove perks from players
-nitroperks.admin.reload       # Reload configuration
+boosterperks.admin               # Full admin access
+boosterperks.admin.gui          # Admin GUI access
+boosterperks.admin.setprice     # Price modification
+boosterperks.admin.give         # Give perks to players
+boosterperks.admin.remove       # Remove perks from players
+boosterperks.admin.reload       # Reload configuration
 
 # Individual perk permissions
-nitroperks.perks.*            # All perks
-nitroperks.perks.telekinesis  # Specific perk access
-nitroperks.perks.fly          # Specific perk access
+boosterperks.perks.*            # All perks
+boosterperks.perks.telekinesis  # Specific perk access
+boosterperks.perks.fly          # Specific perk access
 # ... (see plugin.yml for complete list)
 ```
 
@@ -207,7 +208,7 @@ particles:
 
 ## 🔄 Version Migration
 
-### From v1.x to v2.0.0
+### From NitroPerks to BoosterPerks
 The plugin will automatically:
 1. Create new database tables if needed
 2. Migrate existing data (if any)
@@ -256,6 +257,21 @@ Always backup your:
 - **Web Interface** - Online administration panel
 - **Advanced Statistics** - Detailed usage analytics
 - **Perk Combinations** - Synergy between different perks
+
+## 🛠️ Build Information
+
+### Fixed Dependencies
+- **MySQL Connector** - Reverted to stable `mysql-connector-java:8.0.33`
+- **Maven Build** - Optimized for Jenkins CI/CD
+- **Shaded Dependencies** - All libraries properly relocated
+
+### Build Requirements
+```xml
+<properties>
+    <maven.compiler.release>17</maven.compiler.release>
+    <spigot.version>1.21-R0.1-SNAPSHOT</spigot.version>
+</properties>
+```
 
 ## 📄 License
 
