@@ -1,6 +1,8 @@
 package com.example.perks.commands;
 
 import com.example.perks.PerksPlugin;
+import com.example.perks.managers.AdminManager;
+import com.example.perks.managers.MenuManager;
 import com.example.perks.managers.PerkManager;
 import com.example.perks.model.Perk;
 import org.bukkit.Bukkit;
@@ -15,10 +17,14 @@ public class PerksCommand implements CommandExecutor {
 
     private final PerksPlugin plugin;
     private final PerkManager perkManager;
+    private final MenuManager menuManager;
+    private final AdminManager adminManager;
 
-    public PerksCommand(PerksPlugin plugin, PerkManager perkManager) {
+    public PerksCommand(PerksPlugin plugin, PerkManager perkManager, MenuManager menuManager) {
         this.plugin = plugin;
         this.perkManager = perkManager;
+        this.menuManager = menuManager;
+        this.adminManager = new AdminManager(plugin, perkManager);
     }
 
     @Override
@@ -28,7 +34,7 @@ public class PerksCommand implements CommandExecutor {
             return true;
         }
         if (args.length == 0) {
-            perkManager.openOverview(player);
+            menuManager.openMainMenu(player);
             return true;
         }
         String sub = args[0].toLowerCase();
@@ -100,8 +106,15 @@ public class PerksCommand implements CommandExecutor {
                 plugin.reload();
                 sender.sendMessage(plugin.getPrefix() + plugin.getMessage("reload-success", Map.of()));
                 return true;
+            case "admin":
+                if (!sender.hasPermission("nitroperks.admin")) {
+                    sender.sendMessage(plugin.getPrefix() + plugin.getMessage("admin-no-permission", Map.of()));
+                    return true;
+                }
+                adminManager.openMainAdminMenu(player);
+                return true;
             default:
-                perkManager.openOverview(player);
+                menuManager.openMainMenu(player);
                 return true;
         }
     }

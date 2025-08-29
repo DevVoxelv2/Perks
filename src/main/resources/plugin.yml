@@ -1,16 +1,132 @@
-name: Perks
-version: 1.0
+name: NitroPerks
+version: '2.0.0'
+description: 'Advanced perk system with GUI, database support, and admin tools'
+author: 'YourName'
+website: 'https://github.com/YourUsername/NitroPerks'
 main: com.example.perks.PerksPlugin
 api-version: '1.20'
+folia-supported: true
+
+# Supported Minecraft versions: 1.20 - 1.21.8
+depend: [Vault]
+softdepend: []
+
 commands:
   perks:
-    description: Manage and toggle perks
-    usage: /perks
-    aliases: [perk]
+    description: 'Open the perks menu or execute admin commands'
+    usage: '/perks [admin|add|remove|setprice|reload] [args...]'
+    aliases: [perk, nitroperks, np]
+    permission: nitroperks.use
   perkshop:
-    description: Open the perk shop
-    usage: /perkshop
+    description: 'Open the perk shop (redirects to main menu)'
+    usage: '/perkshop'
+    aliases: [shop, ps]
+    permission: nitroperks.use
+
 permissions:
-  nitroperks.admin:
-    description: Allows administrative perk commands
+  nitroperks.*:
+    description: 'Gives access to all NitroPerks features'
     default: op
+    children:
+      nitroperks.use: true
+      nitroperks.admin: true
+      nitroperks.perks.*: true
+  
+  nitroperks.use:
+    description: 'Allows basic perk usage and menu access'
+    default: true
+  
+  nitroperks.admin:
+    description: 'Allows administrative perk commands and GUI access'
+    default: op
+    children:
+      nitroperks.use: true
+      nitroperks.admin.gui: true
+      nitroperks.admin.setprice: true
+      nitroperks.admin.give: true
+      nitroperks.admin.remove: true
+      nitroperks.admin.reload: true
+  
+  nitroperks.admin.gui:
+    description: 'Access to admin GUI panels'
+    default: op
+  
+  nitroperks.admin.setprice:
+    description: 'Allows setting perk prices'
+    default: op
+  
+  nitroperks.admin.give:
+    description: 'Allows giving perks to players'
+    default: op
+  
+  nitroperks.admin.remove:
+    description: 'Allows removing perks from players'
+    default: op
+  
+  nitroperks.admin.reload:
+    description: 'Allows reloading plugin configuration'
+    default: op
+
+  # Individual perk permissions
+  nitroperks.perks.*:
+    description: 'Gives access to all perks'
+    default: false
+    children:
+      nitroperks.perks.telekinesis: true
+      nitroperks.perks.glow: true
+      nitroperks.perks.no-hunger: true
+      nitroperks.perks.lavaresistance: true
+      nitroperks.perks.no-fall: true
+      nitroperks.perks.waterbreath: true
+      nitroperks.perks.keepxp: true
+      nitroperks.perks.keepinventory: true
+      nitroperks.perks.speed: true
+      nitroperks.perks.nightvision: true
+      nitroperks.perks.jump: true
+      nitroperks.perks.haste: true
+      nitroperks.perks.fly: true
+      nitroperks.perks.instantsmelt: true
+
+  # Individual perk permissions
+  nitroperks.perks.telekinesis:
+    description: 'Allows using the Telekinesis perk'
+    default: false
+  nitroperks.perks.glow:
+    description: 'Allows using the Glow perk'
+    default: false
+  nitroperks.perks.no-hunger:
+    description: 'Allows using the No Hunger perk'
+    default: false
+  nitroperks.perks.lavaresistance:
+    description: 'Allows using the Lava Resistance perk'
+    default: false
+  nitroperks.perks.no-fall:
+    description: 'Allows using the No Fall perk'
+    default: false
+  nitroperks.perks.waterbreath:
+    description: 'Allows using the Water Breath perk'
+    default: false
+  nitroperks.perks.keepxp:
+    description: 'Allows using the Keep XP perk'
+    default: false
+  nitroperks.perks.keepinventory:
+    description: 'Allows using the Keep Inventory perk'
+    default: false
+  nitroperks.perks.speed:
+    description: 'Allows using the Speed perk'
+    default: false
+  nitroperks.perks.nightvision:
+    description: 'Allows using the Night Vision perk'
+    default: false
+  nitroperks.perks.jump:
+    description: 'Allows using the Jump perk'
+    default: false
+  nitroperks.perks.haste:
+    description: 'Allows using the Haste perk'
+    default: false
+  nitroperks.perks.fly:
+    description: 'Allows using the Fly perk'
+    default: false
+  nitroperks.perks.instantsmelt:
+    description: 'Allows using the Instant Smelt perk'
+    default: false

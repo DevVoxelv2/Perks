@@ -2,11 +2,17 @@ package com.example.perks;
 
 import com.example.perks.commands.PerkShopCommand;
 import com.example.perks.commands.PerksCommand;
+import com.example.perks.listeners.AdminMenuListener;
 import com.example.perks.listeners.PerkEffectListener;
 import com.example.perks.listeners.PerkMenuListener;
+import com.example.perks.listeners.PlayerDataListener;
+import com.example.perks.managers.AdminManager;
 import com.example.perks.managers.DatabaseManager;
+import com.example.perks.managers.EffectsManager;
+import com.example.perks.managers.MenuManager;
 import com.example.perks.managers.PerkManager;
 import com.example.perks.model.Perk;
+import com.example.perks.utils.VersionCompatibility;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -19,12 +25,26 @@ import java.util.Map;
 public class PerksPlugin extends JavaPlugin {
     private DatabaseManager databaseManager;
     private PerkManager perkManager;
+    private MenuManager menuManager;
+    private EffectsManager effectsManager;
+    private AdminManager adminManager;
     private FileConfiguration messages;
     private Economy economy;
     private String prefix;
 
     @Override
     public void onEnable() {
+        // Check version compatibility first
+        VersionCompatibility.logCompatibilityInfo();
+        
+        if (!VersionCompatibility.IS_SUPPORTED_VERSION) {
+            getLogger().severe("=== VERSION WARNING ===");
+            getLogger().severe("This version of Minecraft may not be fully supported!");
+            getLogger().severe("Recommended versions: 1.20.x - 1.21.8");
+            getLogger().severe("Current version may cause issues or missing features.");
+            getLogger().severe("======================");
+        }
+        
         saveDefaultConfig();
         saveResource("messages.yml", false);
         saveResource("menus.yml", false);
@@ -40,12 +60,17 @@ public class PerksPlugin extends JavaPlugin {
         databaseManager = new DatabaseManager(this);
         databaseManager.connect();
 
-        perkManager = new PerkManager(this);
+        effectsManager = new EffectsManager(this);
+        perkManager = new PerkManager(this, effectsManager);
+        menuManager = new MenuManager(this, perkManager);
+        adminManager = new AdminManager(this, perkManager);
 
-        getCommand("perks").setExecutor(new PerksCommand(this, perkManager));
-        getCommand("perkshop").setExecutor(new PerkShopCommand(perkManager));
-        getServer().getPluginManager().registerEvents(new PerkMenuListener(perkManager), this);
+        getCommand("perks").setExecutor(new PerksCommand(this, perkManager, menuManager));
+        getCommand("perkshop").setExecutor(new PerkShopCommand(perkManager, menuManager));
+        getServer().getPluginManager().registerEvents(new PerkMenuListener(perkManager, menuManager, effectsManager), this);
         getServer().getPluginManager().registerEvents(new PerkEffectListener(perkManager), this);
+        getServer().getPluginManager().registerEvents(new PlayerDataListener(this), this);
+        getServer().getPluginManager().registerEvents(new AdminMenuListener(this, adminManager, effectsManager), this);
 
         getServer().getConsoleSender().sendMessage(prefix + getMessage("plugin-enabled", Map.of("version", getDescription().getVersion())));
     }
@@ -92,5 +117,31 @@ public class PerksPlugin extends JavaPlugin {
         reloadConfig();
         messages = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "messages.yml"));
         prefix = messages.getString("prefix", "");
+        if (menuManager != null) {
+            menuManager.loadMenuConfig();
+        }
+        if (effectsManager != null) {
+            effectsManager.loadConfig();
+        }
+    }
+    
+    public MenuManager getMenuManager() {
+        return menuManager;
+    }
+    
+    public EffectsManager getEffectsManager() {
+        return effectsManager;
+    }
+    
+    public FileConfiguration getMessages() {
+        return messages;
+    }
+    
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
+    }
+    
+    public PerkManager getPerkManager() {
+        return perkManager;
     }
 }

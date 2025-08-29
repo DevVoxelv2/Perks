@@ -26,3 +26,41 @@ plugin-enabled: '&aNitroPerks v{version} enabled.'
 plugin-disabled: '&eNitroPerks disabled.'
 toggle-on: '&aActivated &e{perk}&a!'
 toggle-off: '&cDeactivated &e{perk}&c!'
+
+# GUI Messages
+gui:
+  main-menu-title: '&x&D&6&9&A&0&0&lP&x&D&6&A&E&0&0&lE&x&7&8&A&2&5&B&lR&x&2&1&9&8&B&E&lK&x&3&2&B&1&D&9&lS &8| &fMain Menu'
+  shop-title: '&x&B&4&B&6&3&0&lP&x&B&4&A&E&3&4&lE&x&B&4&A&5&3&8&lR&x&B&4&9&D&3&C&lK&x&B&4&9&4&4&0&lS &8| &fShop'
+  overview-title: '&x&B&4&B&6&3&0&lP&x&B&4&A&E&3&4&lE&x&B&4&A&5&3&8&lR&x&B&4&9&D&3&C&lK&x&B&4&9&4&4&0&lS &8| &fOverview'
+  category-owned: '&7Owned: &a{owned}&7/&f{total}'
+  perk-active: '&a✓ Active'
+  perk-inactive: '&6⚡ Owned'
+  perk-not-owned: '&c✗ Not Owned'
+  perk-can-afford: '&a$ {price}'
+  perk-cannot-afford: '&c$ {price}'
+  need-more-money: '&7You need &c${amount} &7more!'
+  click-to-enable: '&eClick to enable!'
+  click-to-disable: '&eClick to disable!'
+  click-to-purchase: '&eClick to purchase!'
+  click-to-view: '&eClick to view!'
+  click-to-close: '&eClick to close!'
+  click-to-go-back: '&eClick to go back!'
+  already-owned: '&7You already own this perk.'
+  purchase-first: '&7Purchase in the shop first!'
+  currently-enabled: '&7This perk is currently enabled.'
+  currently-disabled: '&7This perk is currently disabled.'
+
+# Sound Settings
+sounds:
+  enabled: true
+  menu-click: 'UI_BUTTON_CLICK'
+  perk-activate: 'ENTITY_PLAYER_LEVELUP'
+  perk-deactivate: 'BLOCK_NOTE_BLOCK_BASS'
+  purchase-success: 'ENTITY_VILLAGER_YES'
+  purchase-fail: 'ENTITY_VILLAGER_NO'
+  
+# Particle Effects
+particles:
+  enabled: true
+  perk-activate: 'VILLAGER_HAPPY'
+  perk-deactivate: 'SMOKE_NORMAL'

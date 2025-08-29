@@ -35,8 +35,63 @@ templates:
 
 main-menu:
   rows: 3
-  title: '&x&D&6&9&A&0&0&lP&x&D&6&A&E&0&0&lE&x&7&8&A&2&5&B&lR&x&2&1&9&8&B&E&lK&x&3&2&B&1&D&9&lS'
-  items: {}
+  title: '&x&D&6&9&A&0&0&lP&x&D&6&A&E&0&0&lE&x&7&8&A&2&5&B&lR&x&2&1&9&8&B&E&lK&x&3&2&B&1&D&9&lS &8| &fMain Menu'
+  items:
+    border:
+      slots: [0,1,2,3,4,5,6,7,8,9,17,18,19,20,21,23,24,25,26]
+      material: BLACK_STAINED_GLASS_PANE
+      name: ' '
+    categories:
+      combat:
+        slot: 10
+        material: NETHERITE_SWORD
+        name: '&c&lCombat Perks'
+        lore:
+          - ''
+          - '&7Combat-focused abilities'
+          - '&7to give you an edge in battle.'
+          - ''
+          - '&eClick to view!'
+      utility:
+        slot: 12
+        material: ENDER_CHEST
+        name: '&a&lUtility Perks'
+        lore:
+          - ''
+          - '&7Useful everyday abilities'
+          - '&7to make life easier.'
+          - ''
+          - '&eClick to view!'
+      movement:
+        slot: 14
+        material: FEATHER
+        name: '&b&lMovement Perks'
+        lore:
+          - ''
+          - '&7Movement enhancement abilities'
+          - '&7to get around faster.'
+          - ''
+          - '&eClick to view!'
+      survival:
+        slot: 16
+        material: GOLDEN_APPLE
+        name: '&e&lSurvival Perks'
+        lore:
+          - ''
+          - '&7Survival assistance abilities'
+          - '&7to keep you alive.'
+          - ''
+          - '&eClick to view!'
+      mining:
+        slot: 18
+        material: DIAMOND_PICKAXE
+        name: '&6&lMining Perks'
+        lore:
+          - ''
+          - '&7Mining enhancement abilities'
+          - '&7to improve your efficiency.'
+          - ''
+          - '&eClick to view!'
 
 shop-menu:
   page1:

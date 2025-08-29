@@ -13,35 +13,29 @@ import java.util.*;
 
 public class PerkManager {
     private final PerksPlugin plugin;
-    private final Map<UUID, Set<Perk>> unlocked = new HashMap<>();
-    private final Map<UUID, Set<Perk>> active = new HashMap<>();
+    private final EffectsManager effectsManager;
+    private final DatabaseManager databaseManager;
 
-    public PerkManager(PerksPlugin plugin) {
+    public PerkManager(PerksPlugin plugin, EffectsManager effectsManager) {
         this.plugin = plugin;
-    }
-
-    private Set<Perk> getUnlocked(Player p) {
-        return unlocked.computeIfAbsent(p.getUniqueId(), k -> new HashSet<>());
-    }
-
-    private Set<Perk> getActive(Player p) {
-        return active.computeIfAbsent(p.getUniqueId(), k -> new HashSet<>());
+        this.effectsManager = effectsManager;
+        this.databaseManager = plugin.getDatabaseManager();
     }
 
     public boolean isActive(Player p, Perk perk) {
-        return getActive(p).contains(perk);
+        return databaseManager.getActivePerks(p.getUniqueId()).contains(perk.getKey());
     }
 
     public boolean hasUnlocked(Player p, Perk perk) {
-        return getUnlocked(p).contains(perk);
+        return databaseManager.getUnlockedPerks(p.getUniqueId()).contains(perk.getKey());
     }
 
     public void addPerk(Player p, Perk perk) {
-        getUnlocked(p).add(perk);
+        databaseManager.addPerk(p.getUniqueId(), perk.getKey());
     }
 
     public void removePerk(Player p, Perk perk) {
-        getUnlocked(p).remove(perk);
+        databaseManager.removePerk(p.getUniqueId(), perk.getKey());
         deactivate(p, perk);
     }
 
@@ -54,26 +48,31 @@ public class PerkManager {
             p.sendMessage(plugin.getPrefix() + plugin.getMessage("invalid-perk", Map.of("perk", perk.getKey())));
             return;
         }
-        Set<Perk> set = getActive(p);
-        if (set.contains(perk)) {
-            set.remove(perk);
+        
+        boolean currentlyActive = isActive(p, perk);
+        if (currentlyActive) {
+            databaseManager.setPerkActive(p.getUniqueId(), perk.getKey(), false);
             perk.remove(p);
             p.sendMessage(plugin.getPrefix() + plugin.getMessage("toggle-off", Map.of("perk", perk.getKey())));
+            effectsManager.showPerkStatusChange(p, formatPerkName(perk.getKey()), false);
         } else {
-            set.add(perk);
+            databaseManager.setPerkActive(p.getUniqueId(), perk.getKey(), true);
             perk.apply(p);
             p.sendMessage(plugin.getPrefix() + plugin.getMessage("toggle-on", Map.of("perk", perk.getKey())));
+            effectsManager.showPerkStatusChange(p, formatPerkName(perk.getKey()), true);
         }
     }
 
     public void deactivate(Player p, Perk perk) {
-        Set<Perk> set = getActive(p);
-        if (set.remove(perk)) {
+        if (isActive(p, perk)) {
+            databaseManager.setPerkActive(p.getUniqueId(), perk.getKey(), false);
             perk.remove(p);
         }
     }
 
     public void openOverview(Player player) {
+        // This method is now handled by MenuManager
+        // Keeping for backward compatibility
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', "&9Perks"));
         int i = 0;
         for (Perk perk : Perk.values()) {
@@ -83,6 +82,8 @@ public class PerkManager {
     }
 
     public void openShop(Player player) {
+        // This method is now handled by MenuManager
+        // Keeping for backward compatibility
         Inventory inv = Bukkit.createInventory(null, 27, ChatColor.translateAlternateColorCodes('&', "&bPerk Shop"));
         int i = 0;
         for (Perk perk : Perk.values()) {
@@ -107,11 +108,21 @@ public class PerkManager {
         double price = plugin.getPrice(perk);
         if (!eco.has(player, price)) {
             player.sendMessage(plugin.getPrefix() + plugin.getMessage("not-enough-money", Map.of("perk", perk.getKey())));
+            effectsManager.playPurchaseFailEffects(player);
             return false;
         }
         eco.withdrawPlayer(player, price);
         addPerk(player, perk);
+        databaseManager.recordPurchase(player.getUniqueId(), perk.getKey(), price);
         player.sendMessage(plugin.getPrefix() + plugin.getMessage("purchase-success", Map.of("perk", perk.getKey(), "price", String.valueOf((int) price))));
+        effectsManager.playPurchaseSuccessEffects(player);
         return true;
+    }
+    
+    private String formatPerkName(String key) {
+        return Arrays.stream(key.split("-"))
+            .map(word -> word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase())
+            .reduce((a, b) -> a + " " + b)
+            .orElse(key);
     }
 }
